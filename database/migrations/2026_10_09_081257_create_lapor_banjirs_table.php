@@ -10,10 +10,14 @@ return new class extends Migration
     {
         Schema::create('lapor_banjirs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100);
+            $table->string('nama_pelapor');
+            $table->string('no_hp', 15);
+            $table->string('lokasi');
             $table->string('kecamatan', 100);
-            $table->string('desa', 100);
-            $table->decimal('tinggi_genangan', 8, 2);
+            $table->unsignedInteger('tinggi_air');            // dalam cm
+            $table->text('keterangan')->nullable();
+            $table->string('foto')->nullable();               // path foto di storage
+            $table->string('status')->default('Menunggu');    // Menunggu / Diproses / Selesai
             $table->timestamps();
         });
     }

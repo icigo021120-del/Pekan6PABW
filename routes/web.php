@@ -31,6 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 
-    // Halaman daftar laporan yang diproteksi (wajib login)
-    Route::get('/laporan', [LaporBanjirController::class, 'index'])->name('lapor-banjir.index');
+    // CRUD laporan oleh petugas: index, show, edit, update, destroy
+    // (create dan store dilakukan warga lewat /form dan /process)
+    Route::resource('laporan', LaporBanjirController::class)
+        ->parameters(['laporan' => 'laporBanjir'])
+        ->names([
+            'index'   => 'lapor-banjir.index',
+            'show'    => 'lapor-banjir.show',
+            'edit'    => 'lapor-banjir.edit',
+            'update'  => 'lapor-banjir.update',
+            'destroy' => 'lapor-banjir.destroy',
+        ])
+        ->except(['create', 'store']);
 });
